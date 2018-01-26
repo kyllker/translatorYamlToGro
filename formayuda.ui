@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FormAyuda</class>
+ <widget class="QWidget" name="FormAyuda">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Help</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>30</y>
+     <width>371</width>
+     <height>231</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>The first one in the bar tools is Archive. 
+In Archive you can open yaml document and
+see it in the app
+You also save yaml document if you did changes
+Finally you can close the app
+
+On the other hand you can verify if the yaml document is correct 
+because there is a push button called &quot;check if it is correct&quot;
+If it is not correct, the wrongs will be shown in the 
+app and if it is correct you can translate it to gro pushing in 
+the button &quot;Translate to gro&quot;.
+
+Finally you can save gro document where you want in
+ the button &quot;Save gro file in...&quot;</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::PlainText</enum>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

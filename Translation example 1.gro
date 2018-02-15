@@ -1,0 +1,75 @@
+include gro
+
+
+set("dt", 0.1);
+
+set("seed", 52);
+
+set("population_max", 100000);
+
+grid ( "continuous", "gro_original", 10, 10, 8);
+
+iptg := s_signal([kdiff := 0.3, kdeg := 0.4, init_value : = 0.0]);
+
+nutrients := s_signal([kdiff := 0.2, kdeg := 0.1, init_value : = 10.0]);
+
+genes ( [ name: = "o1", proteins : = { "gfp"}, promoter : = [ function : = "AND", transcription_factors := { ""}, noise : = [ toOff := 0.1, to_On : = 0.5, noise_time := 200.0]], prot_act_times := [ times := {30.5 }, variabilities := { 0.45}], prot_deg_times := [ times := {30.5 }, variabilities := { 0.45}]]);
+
+
+plasmids_genes ([  p1 := {"o1"}]);
+
+action({"yfp","-rfp"}, "paint" , {"0.1","0.2","0.3","0.4"});
+
+action({"yfp","-rfp"}, "d_paint" , {"1","3","9","15"});
+
+action({"yfp","-rfp"}, "die" , {"0"});
+
+action({"yfp","-rfp"}, "conjugation" , {"p1","0.7"});
+
+action({"yfp","-rfp"}, "directed_conjugation" , {"p1","0.7"});
+
+action({gfp}, "lose_plasmid" , {"p1"});
+
+route1 := "~/User/";
+
+route2 := "~/User/";
+
+filename1 := "NoWindows.txt:5.0";
+
+filename2 := "NoWindows.txt";
+
+fp1 := fopen ( route1 <> filename1, "w" );
+
+fp2 := fopen ( route2 <> filename2, "w" );
+
+program p1() := 
+{ 
+	set ("ecoli_1_growth_rate", 0.1);
+	selected:
+	{
+		dump_single(fp1);
+	} 
+};
+
+program main() := 
+{	t = 0:
+	{
+		
+		fprint(fp1, "Time, No protein, gfp,  Total\n");
+
+		fprint(fp2, "Time, No protein, gfp,  Total\n");
+	}
+	true:
+	{
+		t := t + dt;
+		
+		dump_multiple(fp1,{"-gfp",},{"gfp"},{});
+
+		dump_multiple(fp2,{"-gfp",},{"gfp"},{});
+
+	}
+
+	c_ecolis(100, 0.4, 0.6, 13.8, {"p1,p2"}, program p1())
+
+	select_random_cell();
+};
